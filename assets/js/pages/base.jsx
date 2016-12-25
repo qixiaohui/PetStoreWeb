@@ -17,7 +17,7 @@ var base = React.createClass({
         return(
             <div>
                 <div className="header">
-                  <div className="navbar navbar-default navbar-fixed-top" role="navigation">
+                  <div className="navbar navbar-inverse navbar-fixed-top" role="navigation">
                     <div className="container">
                       <div className="navbar-header">
                         <form  className="navbar-form" style={{float: "left"}}>
@@ -41,7 +41,7 @@ var base = React.createClass({
                     </div>
                   </div>
                 </div>
-                <div className="container">
+                <div id="container" className="container">
                     {this.props.children}
                 </div>
             </div>

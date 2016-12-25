@@ -18,6 +18,10 @@ var api = {
       if(!data)
            data = {};
       data.timeout = 25000;
+      data.headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+      };
       axios.post(baseUrl+url+'?format=json', data).then(function (response) {
            if (typeof callback === 'function') {
                callback(response);

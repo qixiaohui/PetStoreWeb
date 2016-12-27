@@ -1,28 +1,54 @@
 var React = require('react');
 var api = require('../../service/api');
 var _ = require('underscore');
+var browserHistory = require('react-router').browserHistory;
+
 
 var posts = React.createClass({
     getInitialState: function() {
         return {
-            posts: {}
+            posts: [],
         };
     },
+    handleScroll: function () {
+        const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
+        const windowBottom = windowHeight + window.pageYOffset;
+        if (windowBottom >= docHeight) {
+            this.getPosts();
+        }
+    },
     componentDidMount: function(){
-
+        window.addEventListener("scroll", this.handleScroll);
     },
     componentDidUnMount: function(){
-
+        window.removeEventListener("scroll", this.handleScroll);
     },
-    componentWillMount: function(){
-        api.get('/api/post/list', (response) => {
+    getPosts: function() {
+        var index = 1+Math.ceil(this.state.posts.length/20);
+        api.get('/api/post/list/'+index, (response) => {
             if(response instanceof Error) {
                 console.error(response.message);
                 return;
             }
 
-            this.setState({posts: response.data.results});
+            if(this.state.posts.length === 0)
+                this.setState({posts: response.data});
+            else {
+                this.state.posts = this.state.posts.concat(response.data);
+                this.forceUpdate();
+            }
         });
+    },
+    componentWillMount: function(){
+        this.getPosts();
+    },
+    redirect: function(index) {
+        //this.context.router.push('/#/post/'+index);
+        //browserHistory.push('/#/post/'+index);
+        window.location = 'http://localhost:8080/#/post/'+index;
     },
     render: function() {
         return (
@@ -35,12 +61,12 @@ var posts = React.createClass({
                                     {post.image === null?null:<img className="img-responsive post-list-image " src={post.image} />}
                                 </div>
                             </div>
-                            <div className="col-md-9" href="new.link">
+                            <div className="col-md-9 post-div" href="new.link" onClick={this.redirect.bind(this, post.id)}>
                                 <h3>{post.title}</h3>
                                 <div style={{color: "#5d5f60"}} dangerouslySetInnerHTML={{__html: post.content}}></div>
                             </div>
-                            <p style={{float: "right", fontSize: "12px", color: "#848a91", position: "absolute", bottom: "5px", right: "10px"}}>Post by: {post.user}<br/>{post.timestamp}</p>
-                            <div style={{height: '1px', width: '100%', backgroundColor: '#fefefe'}}></div>
+                            <p style={{float: "right", fontSize: "12px", color: "#848a91", position: "absolute", bottom: "5px", right: "10px"}}>Post by: Tom<br/>{post.timestamp}</p>
+                            {/*<div style={{height: '1px', width: '100%', backgroundColor: '#fefefe'}}></div>*/}
                         </div>
                     );
                 })}

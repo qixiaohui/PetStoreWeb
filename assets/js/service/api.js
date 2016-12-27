@@ -3,7 +3,11 @@ var baseUrl = 'http://localhost:8000'
 
 var api = {
     get: (url, callback) => {
-       axios.get(baseUrl+url+'?format=json', {timeout: 25000}).then(function (response) {
+       axios.get(baseUrl+url, {headers:
+           {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'Access-Control-Allow-Origin': '*'}})
+           .then(function (response) {
            if (typeof callback === 'function') {
                callback(response);
            } else {
@@ -15,7 +19,7 @@ var api = {
     },
 
     post: (url, data, callback) => {
-      axios.post(baseUrl+url+'?format=json', data).then(function (response) {
+      axios.post(baseUrl+url, data).then(function (response) {
            if (typeof callback === 'function') {
                callback(response);
            }

@@ -9,3 +9,7 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 }
+
+.post-div:hover {
+	cursor: pointer;
+}

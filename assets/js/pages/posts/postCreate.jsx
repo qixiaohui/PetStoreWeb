@@ -17,13 +17,11 @@ var postCreate = React.createClass({
     },
     submit: function() {
         let option = {
-            data: {
-                title: this.refs.title.value,
-                image: this.refs.imageUrl.value,
-                content: this.state.text,
-            }
+            title: this.refs.title.value,
+            image: this.refs.imageUrl.value,
+            content: this.state.text,
         };
-        api.post('/api/post/create',  (response) => {
+        api.post('/api/post/create', option, (response) => {
             if(response instanceof Error) {
                 console.error(response.message);
                 return;
@@ -33,6 +31,9 @@ var postCreate = React.createClass({
     },
     clear: function() {
 
+    },
+    onTextChange: function(value) {
+        this.setState({ text:value });
     },
     render: function() {
         return (
@@ -47,14 +48,13 @@ var postCreate = React.createClass({
                 </div>
                 <div className="form-group">
                     <label for="postContent">Content:</label>
-                    <ReactQuill id="postContent" theme='snow' >
+                    <ReactQuill id="postContent" theme='snow' value={this.state.text} onChange={this.onTextChange} >
                         <ReactQuill.Toolbar key="toolbar"
                                             ref="toolbar"
                                             items={ReactQuill.Toolbar.defaultItems} />
                         <div key="editor"
                              ref="editor"
-                             className="quill-contents"
-                             dangerouslySetInnerHTML={{__html:this.state.text}} />
+                             className="quill-contents" />
                     </ReactQuill>
                 </div>
                 <div className="row">

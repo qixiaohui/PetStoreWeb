@@ -1,0 +1,11 @@
+.post-list-image-holder {
+	max-height: 400px;
+	overflow: hidden;
+}
+
+.post-list-image {
+	min-width: 100%;
+	height: auto;
+	background-position: center center;
+	background-repeat: no-repeat;
+}

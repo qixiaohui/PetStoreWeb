@@ -29,16 +29,18 @@ var posts = React.createClass({
             <div className="marketing" style={{marginTop: "100px", paddingLeft: "15px", paddingRight: "15px"}}>
                 {_.map(this.state.posts, (post) => {
                     return (
-                        <div className="row" style={{marginBottom: "40px"}}>
+                        <div className="row" style={{marginBottom: "40px", position: "relative"}}>
                             <div className="col-md-3" style={{marginTop: "10dp"}}>
-                                {post.image === null?null:<img className="img-responsive" src={"http://localhost:8000"+post.image} />}
+                                <div className="post-list-image-holder">
+                                    {post.image === null?null:<img className="img-responsive post-list-image " src={post.image} />}
+                                </div>
                             </div>
                             <div className="col-md-9" href="new.link">
-                                <h4>{post.title}</h4>
-                                <p style={{color: "#5d5f60"}}>{post.content}</p>
-                                <p style={{float: "left", fontSize: "12px", color: "#a9abae"}} id="author">Post by: {post.user}</p>
-                                <p style={{float: "right", fontSize: "12px", color: "#848a91"}}>{post.timestamp}</p>
+                                <h3>{post.title}</h3>
+                                <div style={{color: "#5d5f60"}} dangerouslySetInnerHTML={{__html: post.content}}></div>
                             </div>
+                            <p style={{float: "right", fontSize: "12px", color: "#848a91", position: "absolute", bottom: "5px", right: "10px"}}>Post by: {post.user}<br/>{post.timestamp}</p>
+                            <div style={{height: '1px', width: '100%', backgroundColor: '#fefefe'}}></div>
                         </div>
                     );
                 })}

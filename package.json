@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack -d --watch & nodemon app.js",
-    "build": "webpack -p & grunt deploy"
+    "dev": "grunt dev & webpack -d --watch & nodemon app.js",
+    "deploy": "grunt deploy & webpack -p & node app.js"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -34,6 +34,9 @@
   "author": "xiaohui qi",
   "license": "ISC",
   "devDependencies": {
-    "babel-preset-react": "^6.16.0"
+    "babel-preset-react": "^6.16.0",
+    "grunt": "^1.0.1",
+    "grunt-text-replace": "^0.4.0",
+    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   }
 }

@@ -1,5 +1,5 @@
 var axios = require('axios');
-var baseUrl = 'http://localhost:8000'
+var baseUrl = 'https://petstoreweb.herokuapp.com'
 
 var api = {
     get: (url, callback) => {

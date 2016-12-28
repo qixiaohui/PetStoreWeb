@@ -48,7 +48,7 @@ var posts = React.createClass({
     redirect: function(index) {
         //this.context.router.push('/#/post/'+index);
         //browserHistory.push('/#/post/'+index);
-        window.location = 'http://localhost:8080/#/post/'+index;
+        window.location = 'http://petstorez.herokuapp.com/#/post/'+index;
     },
     render: function() {
         return (

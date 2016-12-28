@@ -9,18 +9,24 @@ module.exports = function(grunt) {
 	  	replace: {
 		      dev: {
 		        overwrite: true,
-		        src: ['./assets/js/service/api.js'],
+		        src: ['./assets/js/service/api.js', './assets/js/pages/posts/posts.jsx'],
 		        replacements: [{
 		          from: 'https://petstoreweb.herokuapp.com',                   // string replacement 
 		          to: 'http://localhost:8000'
+		        }, {
+		          from: 'http://petstorez.herokuapp.com/#/post/',
+		          to: 'http://localhost:8080/#/post/'
 		        }]
 		      },
 		      deploy: {
 		        overwrite: true,
-		        src: ['./assets/js/service/api.js'],
+		        src: ['./assets/js/service/api.js', './assets/js/pages/posts/posts.jsx'],
 		        replacements: [{
 		          from: 'http://localhost:8000',                   // string replacement 
 		          to: 'https://petstoreweb.herokuapp.com'
+		        }, {
+		          from: 'http://localhost:8080/#/post/',
+		          to: 'http://petstorez.herokuapp.com/#/post/'
 		        }]
 		      },
 		    }
